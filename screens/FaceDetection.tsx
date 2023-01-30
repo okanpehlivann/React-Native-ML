@@ -88,29 +88,13 @@ const FaceDetection = () => {
               }}>
               {box?.smileValue < 0.15
                 ? 'Normal'
-                : box?.smileValue < 0.5
+                : box?.smileValue < 0.6
                 ? 'Tebessüm'
-                : box?.smileValue < 0.8
+                : box?.smileValue < 0.88
                 ? 'Gülümsüyor'
                 : 'Kahkaha'}
             </Text>
           </View>
-
-          <View
-            style={{
-              position: 'absolute',
-              top: 100,
-              left: 10,
-              backgroundColor:
-                box?.smileValue > 0.5
-                  ? 'rgba(0,255,0,0.1)'
-                  : 'rgba(255,0,0,0.1)',
-              height: windowHeight - 300,
-              width: windowWidth - 20,
-              borderWidth: 7,
-              borderColor: box?.smileValue > 0.5 ? 'green' : 'red',
-              zIndex: 3000,
-            }}></View>
         </>
       ) : (
         <></>
