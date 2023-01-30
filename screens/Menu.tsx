@@ -7,9 +7,10 @@ import {
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {IEmotionalValue} from '../components/FaceDetector/faceDetector';
 
-const Menu = () => {
+const Menu = ({route}: any) => {
   const navigation = useNavigation();
 
   const [menuItems] = React.useState([
@@ -18,6 +19,9 @@ const Menu = () => {
       text: 'Face Detector',
     },
   ]);
+
+  const [emotionalValues, setEmotionalValues] =
+    React.useState<IEmotionalValue>();
 
   function goToPage(type: string) {
     switch (type) {
@@ -29,6 +33,11 @@ const Menu = () => {
         break;
     }
   }
+
+  useEffect(() => {
+    console.log('RENDER');
+    setEmotionalValues(route.params?.emotionalValues);
+  }, [route]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -45,6 +54,18 @@ const Menu = () => {
             </TouchableOpacity>
           );
         })}
+
+        {emotionalValues && Object.keys(emotionalValues).length > 0 ? (
+          <>
+            <View>
+              <Text>NORMAL: {emotionalValues?.unHappyCount}</Text>
+              <Text>MUTLU: {emotionalValues?.happyCount}</Text>
+              <Text>ÇOK MUTLU: {emotionalValues?.veryHappyCount}</Text>
+            </View>
+          </>
+        ) : (
+          <></>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
