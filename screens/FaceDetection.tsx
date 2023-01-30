@@ -2,16 +2,17 @@ import {SafeAreaView, StyleSheet} from 'react-native';
 import React from 'react';
 import FaceDetector from '../components/FaceDetector';
 import {useNavigation} from '@react-navigation/native';
-import {IEmotionalValue} from '../components/FaceDetector/faceDetector';
+import {
+  IEmotionalPercent,
+  IEmotionalValue,
+} from '../components/FaceDetector/faceDetector';
 
 const FaceDetection = () => {
   const navigation = useNavigation();
 
-  function closeCamera(emotionalValues: IEmotionalValue) {
-    console.log('CLOSE CAMERA ', emotionalValues);
-
+  function closeCamera(emotionalPercents: IEmotionalPercent) {
     navigation.navigate('Menu', {
-      emotionalValues: emotionalValues,
+      emotionalPercents: emotionalPercents,
     });
   }
 

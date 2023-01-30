@@ -6,7 +6,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {FC, memo} from 'react';
-import {FaceDetectorProps, IEmotionalValue} from './faceDetector';
+import {
+  FaceDetectorProps,
+  IEmotionalPercent,
+  IEmotionalValue,
+} from './faceDetector';
 import {
   Camera,
   useCameraDevices,
@@ -24,6 +28,12 @@ const FaceDetector: FC<FaceDetectorProps> = props => {
     unHappyCount: 0,
     happyCount: 0,
     veryHappyCount: 0,
+  });
+
+  const [emotionalPercents] = React.useState<IEmotionalPercent>({
+    unHappyPercent: 0,
+    happyPercent: 0,
+    veryHappyPercent: 0,
   });
 
   React.useEffect(() => {
@@ -61,6 +71,34 @@ const FaceDetector: FC<FaceDetectorProps> = props => {
     );
   }
 
+  async function closeCamera() {
+    const emotionalPercents = await calcEmotionalPercents(emotionalValues);
+
+    props.closeCamera(emotionalPercents);
+  }
+
+  function calcEmotionalPercents(
+    emotionalValues: IEmotionalValue,
+  ): IEmotionalPercent {
+    const total =
+      emotionalValues.happyCount +
+      emotionalValues.unHappyCount +
+      emotionalValues.veryHappyCount;
+
+    (emotionalPercents.unHappyPercent = Number(
+      ((emotionalValues.unHappyCount / total) * 100).toFixed(2),
+    )),
+      (emotionalPercents.happyPercent = Number(
+        ((emotionalValues.happyCount / total) * 100).toFixed(2),
+      ));
+
+    emotionalPercents.veryHappyPercent = Number(
+      ((emotionalValues.veryHappyCount / total) * 100).toFixed(2),
+    );
+
+    return emotionalPercents;
+  }
+
   return (
     <View style={styles.camera}>
       <Camera
@@ -71,9 +109,7 @@ const FaceDetector: FC<FaceDetectorProps> = props => {
         frameProcessorFps={10}
       />
 
-      <TouchableOpacity
-        onPress={() => props.closeCamera(emotionalValues)}
-        style={styles.close}>
+      <TouchableOpacity onPress={closeCamera} style={styles.close}>
         <Text style={styles.closeBtn}>Close</Text>
       </TouchableOpacity>
     </View>
@@ -88,8 +124,8 @@ const styles = StyleSheet.create({
 
   close: {
     position: 'absolute',
-    top: 50,
-    right: 20,
+    top: 45,
+    right: 15,
   },
   closeBtn: {
     color: '#fff',

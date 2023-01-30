@@ -8,7 +8,10 @@ import {
 
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {IEmotionalValue} from '../components/FaceDetector/faceDetector';
+import {
+  IEmotionalPercent,
+  IEmotionalValue,
+} from '../components/FaceDetector/faceDetector';
 
 const Menu = ({route}: any) => {
   const navigation = useNavigation();
@@ -16,12 +19,12 @@ const Menu = ({route}: any) => {
   const [menuItems] = React.useState([
     {
       type: 'face-detector',
-      text: 'Face Detector',
+      text: 'Duygu Durumunu Ölç',
     },
   ]);
 
-  const [emotionalValues, setEmotionalValues] =
-    React.useState<IEmotionalValue>();
+  const [emotionalPercents, setEmotionalPercents] =
+    React.useState<IEmotionalPercent>();
 
   function goToPage(type: string) {
     switch (type) {
@@ -36,7 +39,7 @@ const Menu = ({route}: any) => {
 
   useEffect(() => {
     console.log('RENDER');
-    setEmotionalValues(route.params?.emotionalValues);
+    setEmotionalPercents(route.params?.emotionalPercents);
   }, [route]);
 
   return (
@@ -46,7 +49,12 @@ const Menu = ({route}: any) => {
           return (
             <TouchableOpacity
               key={index}
-              style={{margin: 20}}
+              style={{
+                margin: 20,
+                backgroundColor: 'gray',
+                padding: 10,
+                borderRadius: 10,
+              }}
               onPress={() => goToPage(item.type)}>
               <Text style={{color: '#000', fontSize: 20, fontWeight: 'bold'}}>
                 {item.text}
@@ -55,12 +63,76 @@ const Menu = ({route}: any) => {
           );
         })}
 
-        {emotionalValues && Object.keys(emotionalValues).length > 0 ? (
+        {emotionalPercents && Object.keys(emotionalPercents).length > 0 ? (
           <>
-            <View>
-              <Text>NORMAL: {emotionalValues?.unHappyCount}</Text>
-              <Text>MUTLU: {emotionalValues?.happyCount}</Text>
-              <Text>ÇOK MUTLU: {emotionalValues?.veryHappyCount}</Text>
+            <View style={{margin: 20}}>
+              <Text style={{}}>
+                NORMAL: {emotionalPercents?.unHappyPercent}
+              </Text>
+              <View>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 10,
+                    backgroundColor: 'gray',
+                    marginTop: 20,
+                    borderRadius: 20,
+                  }}>
+                  <View
+                    style={{
+                      width: `${emotionalPercents?.unHappyPercent}%`,
+                      height: 10,
+                      backgroundColor: 'red',
+                      borderRadius: 20,
+                    }}></View>
+                </View>
+              </View>
+            </View>
+
+            <View style={{margin: 20}}>
+              <Text style={{}}>MUTLU: {emotionalPercents?.happyPercent}</Text>
+              <View>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 10,
+                    backgroundColor: 'gray',
+                    marginTop: 20,
+                    borderRadius: 20,
+                  }}>
+                  <View
+                    style={{
+                      width: `${emotionalPercents?.happyPercent}%`,
+                      height: 10,
+                      backgroundColor: 'green',
+                      borderRadius: 20,
+                    }}></View>
+                </View>
+              </View>
+            </View>
+
+            <View style={{margin: 20}}>
+              <Text style={{}}>
+                ÇOK MUTLU: {emotionalPercents?.veryHappyPercent}
+              </Text>
+              <View>
+                <View
+                  style={{
+                    width: '100%',
+                    height: 10,
+                    backgroundColor: 'gray',
+                    marginTop: 20,
+                    borderRadius: 20,
+                  }}>
+                  <View
+                    style={{
+                      width: `${emotionalPercents?.veryHappyPercent}%`,
+                      height: 10,
+                      backgroundColor: 'blue',
+                      borderRadius: 20,
+                    }}></View>
+                </View>
+              </View>
             </View>
           </>
         ) : (
