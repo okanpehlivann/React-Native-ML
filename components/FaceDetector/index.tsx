@@ -25,13 +25,13 @@ const FaceDetector: FC<FaceDetectorProps> = props => {
 
   const [faces, setFaces] = React.useState<Face[]>([]);
   const [emotionalValues] = React.useState<IEmotionalValue>({
-    unHappyCount: 0,
+    normalCount: 0,
     happyCount: 0,
     veryHappyCount: 0,
   });
 
   const [emotionalPercents] = React.useState<IEmotionalPercent>({
-    unHappyPercent: 0,
+    normalPercent: 0,
     happyPercent: 0,
     veryHappyPercent: 0,
   });
@@ -41,7 +41,7 @@ const FaceDetector: FC<FaceDetectorProps> = props => {
       const smileValue = Number(faces[0]?.smilingProbability.toFixed(2));
 
       if (smileValue < props.normal) {
-        emotionalValues.unHappyCount += 1;
+        emotionalValues.normalCount += 1;
       } else if (smileValue > props.normal && smileValue < props.happy) {
         emotionalValues.happyCount += 1;
       } else if (smileValue > props.veryHappy) {
@@ -82,11 +82,11 @@ const FaceDetector: FC<FaceDetectorProps> = props => {
   ): IEmotionalPercent {
     const total =
       emotionalValues.happyCount +
-      emotionalValues.unHappyCount +
+      emotionalValues.normalCount +
       emotionalValues.veryHappyCount;
 
-    (emotionalPercents.unHappyPercent = Number(
-      ((emotionalValues.unHappyCount / total) * 100).toFixed(2),
+    (emotionalPercents.normalPercent = Number(
+      ((emotionalValues.normalCount / total) * 100).toFixed(2),
     )),
       (emotionalPercents.happyPercent = Number(
         ((emotionalValues.happyCount / total) * 100).toFixed(2),

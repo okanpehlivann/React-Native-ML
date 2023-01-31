@@ -66,9 +66,7 @@ const Menu = ({route}: any) => {
         {emotionalPercents && Object.keys(emotionalPercents).length > 0 ? (
           <>
             <View style={{margin: 20}}>
-              <Text style={{}}>
-                NORMAL: {emotionalPercents?.unHappyPercent}
-              </Text>
+              <Text style={{}}>NORMAL: {emotionalPercents?.normalPercent}</Text>
               <View>
                 <View
                   style={{
@@ -80,7 +78,7 @@ const Menu = ({route}: any) => {
                   }}>
                   <View
                     style={{
-                      width: `${emotionalPercents?.unHappyPercent}%`,
+                      width: `${emotionalPercents?.normalPercent}%`,
                       height: 10,
                       backgroundColor: 'red',
                       borderRadius: 20,

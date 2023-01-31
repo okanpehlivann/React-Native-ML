@@ -8,13 +8,13 @@ export interface FaceDetectorProps {
 }
 
 export interface IEmotionalValue {
-  unHappyCount: number;
+  normalCount: number;
   happyCount: number;
   veryHappyCount: number;
 }
 
 export interface IEmotionalPercent {
-  unHappyPercent: number;
+  normalPercent: number;
   happyPercent: number;
   veryHappyPercent: number;
 }
