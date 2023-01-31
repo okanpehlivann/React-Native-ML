@@ -9,9 +9,9 @@ Moods: Normal, Happy, Very Happy.
 Percentage calculations of different moods are made in the background as long as the camera remains on.
 
 <p float="left">
-  <img src="https://user-images.githubusercontent.com/114703201/215697616-7184e476-b67b-4c45-a2ee-bb7494d3e8f0.jpeg" width="200">
-  <img src="https://user-images.githubusercontent.com/114703201/215697643-b63cafc1-8698-4a2e-8268-ffe998ecb6c1.jpeg" width="200">
-  <img src="https://user-images.githubusercontent.com/114703201/215697669-90c0142c-903f-4dd8-bb75-e9be83057806.jpeg" width="200">
+  <img src="https://user-images.githubusercontent.com/114703201/215697616-7184e476-b67b-4c45-a2ee-bb7494d3e8f0.jpeg" width="300">
+  <img src="https://user-images.githubusercontent.com/114703201/215697643-b63cafc1-8698-4a2e-8268-ffe998ecb6c1.jpeg" width="300">
+  <img src="https://user-images.githubusercontent.com/114703201/215697669-90c0142c-903f-4dd8-bb75-e9be83057806.jpeg" width="300">
 </p>
 
 ## Node Version: 16
