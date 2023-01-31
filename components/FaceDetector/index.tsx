@@ -18,9 +18,11 @@ import {
 } from 'react-native-vision-camera';
 import {runOnJS} from 'react-native-reanimated';
 import {Face, scanFaces} from 'vision-camera-face-detector';
+import {useIsFocused} from '@react-navigation/native';
 
 const FaceDetector: FC<FaceDetectorProps> = props => {
   const devices = useCameraDevices();
+  const focus = useIsFocused();
   const device = devices.front;
 
   const [faces, setFaces] = React.useState<Face[]>([]);
@@ -104,13 +106,13 @@ const FaceDetector: FC<FaceDetectorProps> = props => {
       <Camera
         style={styles.camera}
         device={device}
-        isActive={true}
+        isActive={focus}
         frameProcessor={frameProcessor}
         frameProcessorFps={10}
       />
 
       <TouchableOpacity onPress={closeCamera} style={styles.close}>
-        <Text style={styles.closeBtn}>Close</Text>
+        <Text style={styles.closeBtn}>X</Text>
       </TouchableOpacity>
     </View>
   );
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
   },
   closeBtn: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
   },
 });

@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
@@ -12,6 +13,7 @@ import {
   IEmotionalPercent,
   IEmotionalValue,
 } from '../components/FaceDetector/faceDetector';
+import ProgressBar from '../components/ProgressBar';
 
 const Menu = ({route}: any) => {
   const navigation = useNavigation();
@@ -66,71 +68,33 @@ const Menu = ({route}: any) => {
         {emotionalPercents && Object.keys(emotionalPercents).length > 0 ? (
           <>
             <View style={{margin: 20}}>
-              <Text style={{}}>NORMAL: {emotionalPercents?.normalPercent}</Text>
-              <View>
-                <View
-                  style={{
-                    width: '100%',
-                    height: 10,
-                    backgroundColor: 'gray',
-                    marginTop: 20,
-                    borderRadius: 20,
-                  }}>
-                  <View
-                    style={{
-                      width: `${emotionalPercents?.normalPercent}%`,
-                      height: 10,
-                      backgroundColor: 'red',
-                      borderRadius: 20,
-                    }}></View>
-                </View>
-              </View>
+              <Text style={styles.title}>
+                NORMAL: {emotionalPercents?.normalPercent}
+              </Text>
+              <ProgressBar
+                barColor="red"
+                emotionalPercent={emotionalPercents?.normalPercent}
+              />
             </View>
 
             <View style={{margin: 20}}>
-              <Text style={{}}>MUTLU: {emotionalPercents?.happyPercent}</Text>
-              <View>
-                <View
-                  style={{
-                    width: '100%',
-                    height: 10,
-                    backgroundColor: 'gray',
-                    marginTop: 20,
-                    borderRadius: 20,
-                  }}>
-                  <View
-                    style={{
-                      width: `${emotionalPercents?.happyPercent}%`,
-                      height: 10,
-                      backgroundColor: 'green',
-                      borderRadius: 20,
-                    }}></View>
-                </View>
-              </View>
+              <Text style={styles.title}>
+                MUTLU: {emotionalPercents?.happyPercent}
+              </Text>
+              <ProgressBar
+                barColor="green"
+                emotionalPercent={emotionalPercents?.happyPercent}
+              />
             </View>
 
             <View style={{margin: 20}}>
-              <Text style={{}}>
+              <Text style={styles.title}>
                 ÇOK MUTLU: {emotionalPercents?.veryHappyPercent}
               </Text>
-              <View>
-                <View
-                  style={{
-                    width: '100%',
-                    height: 10,
-                    backgroundColor: 'gray',
-                    marginTop: 20,
-                    borderRadius: 20,
-                  }}>
-                  <View
-                    style={{
-                      width: `${emotionalPercents?.veryHappyPercent}%`,
-                      height: 10,
-                      backgroundColor: 'blue',
-                      borderRadius: 20,
-                    }}></View>
-                </View>
-              </View>
+              <ProgressBar
+                barColor="blue"
+                emotionalPercent={emotionalPercents?.veryHappyPercent}
+              />
             </View>
           </>
         ) : (
@@ -140,5 +104,13 @@ const Menu = ({route}: any) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'gray',
+  },
+});
 
 export default Menu;
